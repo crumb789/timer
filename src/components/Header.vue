@@ -50,7 +50,7 @@
             <div :class="{countWorkActive: arrowWork}" class="work-count wrapper-item">
                 {{timeWork}}
                 
-                <span>min</span>
+                <span>Min</span>
 
                 <div v-if="arrowWork" :class="{arrowActive: arrowWork}" class="arrow arrow_work">
                     <div class="arrow-hide">
@@ -61,7 +61,7 @@
             <div :class="{countChillActive: arrowChill }" class="chill-count wrapper-item">
                 {{timeChill}}
                 
-                <span>min</span>
+                <span>Min</span>
 
                 <div v-if="arrowChill" :class="{arrowActive: arrowChill }" class="arrow arrow_chill">
                     <div class="arrow-hide">
@@ -264,6 +264,7 @@ export default {
 <style lang="scss" scoped>
 h1{
     font-weight: 600;
+    font-family: 'Comfortaa', sans-serif;
     span{
         color: var(--bs-danger);
     }
@@ -312,18 +313,19 @@ h1{
         align-items: center;
         font-size: 60px;
         position: relative;
-        text-shadow: -1px -1px 0px #000;
+        text-shadow: 2px 2px 0px #000;
         font-weight: 600;
         span{
             position: absolute;
-            bottom: 35%;
+            bottom: 31%;
             left: 50%;
             font-size: 35px;
             z-index: -1;
             color: #000;
             opacity: 0.6;
             text-shadow: none;
-            font-weight: 400;
+            font-weight: 500;
+            font-family: 'Comfortaa', sans-serif;
         }
     }
 }
@@ -436,7 +438,8 @@ h1{
             width: 200px;
             height: 200px;
             span{
-                bottom: 28%;
+                bottom: 21%;
+                left: 50%;
             }
         }
     }
