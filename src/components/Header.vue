@@ -47,23 +47,23 @@
         
             
         <div class="wrapper"> <!-- ///////////// timer -->
-            <div class="work-count wrapper-item">
+            <div :class="{countWorkActive: arrowWork}" class="work-count wrapper-item">
                 {{timeWork}}
                 
                 <span>min</span>
 
-                <div :class="{arrowActive: arrowWork}" class="arrow arrow_work">
+                <div v-if="arrowWork" :class="{arrowActive: arrowWork}" class="arrow arrow_work">
                     <div class="arrow-hide">
 
                     </div>
                 </div>
             </div>
-            <div class="chill-count wrapper-item">
+            <div :class="{countChillActive: arrowChill }" class="chill-count wrapper-item">
                 {{timeChill}}
                 
                 <span>min</span>
 
-                <div :class="{arrowActive: arrowChill }" class="arrow arrow_chill">
+                <div v-if="arrowChill" :class="{arrowActive: arrowChill }" class="arrow arrow_chill">
                     <div class="arrow-hide">
 
                     </div>
@@ -367,6 +367,37 @@ h1{
     animation: arrow 60s  infinite linear;
     box-shadow: 3px 1px 4px #8d2b34;
     transition: 0.3s all;
+}
+
+.countWorkActive{
+    animation: countActive 5s  infinite linear;
+    box-shadow: 7px 0px 3px;
+    transition: 0.3s all;
+
+}
+.countChillActive{
+    animation: countActive 5s  infinite linear;
+    box-shadow: 7px 0px 3px;
+    transition: 0.3s all;
+
+}
+@keyframes countActive{
+    0%{
+        box-shadow: 7px 0px 3px, -7px 0px 3px;
+    }
+    25%{
+        box-shadow: 0px 7px 3px, 0px -7px 3px;
+    }
+    50%{
+        box-shadow: -7px 0px 3px, 7px 0px 3px;
+    }
+    75%{
+        box-shadow: 0px -7px 3px, 0px 7px 3px;
+    }
+    100%{
+        
+        box-shadow: 7px 0px 3px, -7px 0px 3px;
+    }
 }
 
 @keyframes arrow{
