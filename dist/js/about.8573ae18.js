@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunktimer_v2"]=self["webpackChunktimer_v2"]||[]).push([[443],{7381:function(n,t,e){e.r(t),e.d(t,{default:function(){return l}});var r=e(3396);const u={class:"about"},a=(0,r._)("h1",null,"This is an about page",-1),s=[a];function i(n,t){return(0,r.wg)(),(0,r.iD)("div",u,s)}var c=e(89);const o={},f=(0,c.Z)(o,[["render",i]]);var l=f}}]);
+//# sourceMappingURL=about.8573ae18.js.map
