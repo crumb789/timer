@@ -190,7 +190,8 @@ export default {
         audioBackground(){
             if (this.audioBacksound !== null){
                 this.audioBack = new Audio(this.audioBacksound)
-                this.audioBack.play() 
+                this.audioBack.loop = true; 
+                this.audioBack.play()
             } 
         },
 
@@ -392,4 +393,22 @@ h1{
         }
     }
 }
+
+@media(max-width: 765px){
+    .wrapper{
+        flex-direction: column;
+        row-gap: 15px;
+        align-items: center;
+        // margin-bottom: 30px;
+        margin: 70px 0 30px 0;
+        &-item{
+            width: 200px;
+            height: 200px;
+            span{
+                bottom: 28%;
+            }
+        }
+    }
+}
+
 </style>
