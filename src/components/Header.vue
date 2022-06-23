@@ -4,31 +4,40 @@
             <br><hr>
             <h1><span>Work</span> {{title}} </h1>
             <br> <hr>
+
             <div class="header-setting"> <!-- setting btn -->
                 
                 <i v-if="audio" class="bi bi-music-note"></i>   
                 {{audio}} <span v-if="audio">||</span> Timer setting 
                 
-                <i @click="setting = !setting" :class="{active: setting}" class="header-setting-icon bi bi-gear-wide-connected"></i>
+                <i  @click="setting = !setting" :class="{active: setting && !showStopBtn}" class="header-setting-icon bi bi-gear-wide-connected"></i>
 
                 
                 <div v-if="setting && !showStopBtn" class="header-wrapper">         
-                    <div class="work" v-if="!showStopBtn">
+                    <!-- <div class="work" v-if="!showStopBtn">
                         <i @click="timeWork = timeWork - 1" v-if="timeWork >= 1" class="bi bi-dash"></i>
                         <i v-if="timeWork < 1" class="bi bi-dash"></i>
                             Work
                         <i @click="timeWork = timeWork + 1" class="bi bi-plus"></i>
-                    </div>
-                    <div class="chill" v-if="!showStopBtn">
+                    </div> -->
+                    <!-- <div class="chill" v-if="!showStopBtn">
                         <i @click="timeChill = timeChill - 1" v-if="timeChill >= 1" class="bi bi-dash"></i>
                         <i v-if="timeChill < 1" class="bi bi-dash"></i>
                             Chill
                         <i @click="timeChill = timeChill + 1"  class="bi bi-plus"></i>
-                    </div>
+                    </div> -->
 
                     <div class="audio">
                         
                         <form @submit.prevent='onSubmit' class="audio-form">
+
+                            <label for="customRange1" class="form-label">Work time <span>{{timeWork}}</span> min</label>
+                            <input type="range" class="range" id="customRange1" min="0" max="120" v-model="timeWork">
+
+                            <label for="customRange1" class="form-label">Chill time <span>{{timeChill}}</span> min</label>
+                            <input type="range" class="range" id="customRange1" min="0" max="120" v-model="timeChill">
+                            
+
                             <label class="audio-form-label" for="audioSelected">Sound</label>
                             <select @change="onSubmit" class="audio-form-select" v-model="audioSelected" id="audioSelected" >
                                 <option class="audio-form-option" disabled >Select the background sound</option>
@@ -49,7 +58,7 @@
         <div class="wrapper"> <!-- ///////////// timer -->
             <div :class="{countWorkActive: arrowWork}" class="work-count wrapper-item">
                 {{timeWork}}
-                
+                 
                 <span>Min</span>
 
                 <div v-if="arrowWork" :class="{arrowActive: arrowWork}" class="arrow arrow_work">
@@ -93,6 +102,7 @@ export default {
             startTimerChill: null,
             showStopBtn: false,
             setting: false,
+            ranger: 0,
             arrowWork: false,
             arrowChill: false,
             audio: null,
@@ -269,6 +279,12 @@ h1{
         color: var(--bs-danger);
     }
 }
+.active{
+    &::before{
+        transition: 0.3s all;
+        transform: rotateZ(90deg);
+    }
+}
 .bi{
     cursor: pointer;
 }
@@ -282,7 +298,9 @@ h1{
         color: #000;
        
         &-icon{
-            
+            &::before{
+                transition: 0.3s all;
+            }
         }
     }
     &-wrapper{
@@ -294,6 +312,9 @@ h1{
         background: #fff;
         z-index: 10;
         padding: 5px 0 5px 0;
+        span{
+            color: #8d2b34;
+        }
     }
 }
 .wrapper{
@@ -345,6 +366,7 @@ h1{
     width: 2px;     
     z-index: -2;
     transform: rotateZ(0deg);
+
     &-hide{
         position: absolute;
         height: 75%;
@@ -356,10 +378,12 @@ h1{
 
     }
     &_work{
+        border-radius: 3px;
         background: rebeccapurple;
         // transform: rotateZ(270deg);
     }
     &_chill{
+        border-radius: 3px;
         background: var(--bs-orange);
         // transform: rotateZ(270deg);
     }
@@ -383,6 +407,8 @@ h1{
     transition: 0.3s all;
 
 }
+
+
 @keyframes countActive{
     0%{
         box-shadow: 7px 0px 3px, -7px 0px 3px;
