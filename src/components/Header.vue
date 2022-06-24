@@ -3,7 +3,8 @@
         <div class="header">
             <br><hr>
             <h1><span>Work</span> {{title}} </h1>
-            <br> <hr>
+            <br> 
+            <hr>
 
             <div class="header-setting"> <!-- setting btn -->
                 
@@ -32,11 +33,18 @@
                         <form @submit.prevent='onSubmit' class="audio-form">
 
                             <label for="customRange1" class="form-label">Work time <span>{{timeWork}}</span> min</label>
-                            <input type="range" class="range" id="customRange1" min="0" max="120" v-model="timeWork">
+                            <input type="range" class="range" id="customRange1" min="1" max="120" v-model="timeWork">
+                            <hr>
 
                             <label for="customRange1" class="form-label">Chill time <span>{{timeChill}}</span> min</label>
-                            <input type="range" class="range" id="customRange1" min="0" max="120" v-model="timeChill">
+                            <input type="range" class="range" id="customRange1" min="1" max="120" v-model="timeChill">
+                            <hr>
                             
+                            <div class="form-check form-switch">
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Loop</label>
+                                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" v-model="loopTime">
+                            </div>
+                            <hr>
 
                             <label class="audio-form-label" for="audioSelected">Sound</label>
                             <select @change="onSubmit" class="audio-form-select" v-model="audioSelected" id="audioSelected" >
@@ -105,6 +113,7 @@ export default {
             ranger: 0,
             arrowWork: false,
             arrowChill: false,
+            loopTime: false,
             audio: null,
             audioBack: null,
             audioWorkDone:  require("@/assets/audio/zvuk.mp3"),
@@ -172,8 +181,12 @@ export default {
 
                     let audio = new Audio(this.audioChillDone)
                         audio.play();
-                     
-                    this.stopTimer()
+                    
+                    if(this.loopTime === true){   //////chek loop timer
+                        this.goWork()
+
+                    } else this.stopTimer()
+                    
                 }
             },60000)
 
@@ -231,6 +244,9 @@ export default {
         if(localStorage.audio){
             this.audio = JSON.parse(localStorage.audio)
         }
+        if(localStorage.loopTime){
+            this.loopTime = JSON.parse(localStorage.loopTime)
+        }
     },
 
     watch:{
@@ -243,6 +259,12 @@ export default {
         timeChill:{
             handler(newtimeChill){
                 localStorage.timeChill = JSON.stringify(newtimeChill)
+            },
+            deep: true
+        },
+        loopTime:{
+            handler(newLoop){
+                localStorage.loopTime = JSON.stringify(newLoop)
             },
             deep: true
         },
@@ -288,6 +310,22 @@ h1{
 .bi{
     cursor: pointer;
 }
+/////////////////
+.divider{
+    // background-color: rebeccapurple;
+    // width: 100%;
+    // height: 30px;
+}
+.form-check{
+    display: flex;
+    display: flex;
+    /* row-gap: 10px; */
+    justify-content: space-around;
+    padding: 0;
+}
+/////////////////////@at-root
+////////////////////////
+
 .header {
     color: var(--bs-green);
     position: relative;
@@ -442,10 +480,10 @@ h1{
         width: 100%;
         &-select{
         width: 95%;
-
+        margin-bottom: 5px;
         }
         &-label{
-
+            margin-bottom: 5px;
         }
         &-option{
             width: 100px;
