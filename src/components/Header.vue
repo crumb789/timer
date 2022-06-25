@@ -11,7 +11,7 @@
                 <i v-if="audio" class="bi bi-music-note"></i>   
                 {{audio}} <span v-if="audio">||</span> Timer setting 
                 
-                <i  @click="setting = !setting" :class="{active: setting && !showStopBtn}" class="header-setting-icon bi bi-gear-wide-connected"></i>
+                <i  @click="setting = !setting" :class="{active: setting && !showStopBtn, disabled: showStopBtn}" class="header-setting-icon bi bi-gear-wide-connected"></i>
 
                 
                 <div v-if="setting && !showStopBtn" class="header-wrapper">         
@@ -160,6 +160,7 @@ export default {
                 if(this.timeWork < 1){
                     this.timeWork = this.remembserTimeWork
                     clearInterval(this.startTimerWork)
+                    this.audioBack.pause()
 
                     let audio = new Audio(this.audioWorkDone)
                         audio.play();
@@ -169,7 +170,7 @@ export default {
             },60000)
         },
         goChill(){ //////////start timer chill
-            
+            this.audioBackground()
             this.arrowChill = true
             this.arrowWork = false
             this.remembserTimeChill = this.timeChill
@@ -178,6 +179,7 @@ export default {
                 if(this.timeChill < 1){
                     this.timeChill = this.remembserTimeChill
                     clearInterval(this.startTimerChill )
+                    this.audioBack.pause()
 
                     let audio = new Audio(this.audioChillDone)
                         audio.play();
@@ -325,7 +327,12 @@ h1{
 }
 /////////////////////@at-root
 ////////////////////////
-
+.disabled{
+    &::before{
+        transition: 0.3s all;
+        color: var(--bs-gray);
+    }
+}
 .header {
     color: var(--bs-green);
     position: relative;
